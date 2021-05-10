@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mediscreen</title>
+    <link href="http://fonts.cdnfonts.com/css/product-sans" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <script src="https://kit.fontawesome.com/48783a79b8.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container-fluid p-0">
+    <div class="row m-0">
+        <nav class="navbar navbar-expand-lg navbar-light bg-primary w-100 m-0 mb-5">
+            <div class="container-fluid">
+                <a class="navbar-brand text-white" href="/">Mediscreen</a>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-white">
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" href="/patient/list">Patients</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/note/list">Notes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/report/generate">Reports</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="row m-0 w-75 m-auto d-flex justify-content-between m-5 pb-3">
+        <div>
+            <h3 class="table-title">Generate patient report</h3>
+        </div>
+    </div>
+    <div class="row m-0 w-75 m-auto">
+        <form method="post" th:action="@{/report/generate}" th:object="${report}" class="form-horizontal w-100">
+            <div class="form-group">
+                <label for="sex" class="col-sm-2 control-label">Sex</label>
+                <div class="col-sm-10">
+                    <select id="sex" th:field="*{patientId}" class="col-4 form-control">
+                        <option
+                                th:each="patient: ${patients}"
+                                th:value="${patient.id}"
+                                th:text="${patient.family}"
+                        ></option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <a class="btn btn-danger btn-sm" href="/patient/list">Cancel</a>
+                    <input class="btn btn-primary btn-sm" type="submit" value="Generate rapport">
+                </div>
+            </div>
+            <div th:if="${reportDescription}" class="alert alert-success" th:text="${reportDescription}"></div>
+        </form>
+    </div>
+
+</div>
+<script type="text/javascript" src="webjars/bootstrap/4.0.0-2/js/bootstrap.min.js"></script>
+</body>
+</html>
