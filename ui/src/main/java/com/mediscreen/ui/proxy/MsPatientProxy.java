@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
-@FeignClient(name = "ms-patient", url = "localhost:8002")
+@FeignClient(name = "ms-patient", url = "${proxy.ms.patient.url}")
 public interface MsPatientProxy {
     @GetMapping("/patient/{id}")
     Patient getPatient(@PathVariable long id);

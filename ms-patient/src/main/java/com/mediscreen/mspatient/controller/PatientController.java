@@ -64,4 +64,28 @@ public class PatientController {
     public Patient postPatient(@RequestBody @Valid Patient patient) {
         return this.patientService.save(patient);
     }
+
+    /**
+     * Endpoint: /patient/update
+     * Desc: Update a patient
+     *
+     * @param id      patient id
+     * @param patient patient to update
+     * @return patient updated
+     */
+    @PostMapping("/update/{id}")
+    public Patient putPatient(@PathVariable Long id, @RequestBody @Valid Patient patient) {
+        return this.patientService.update(id, patient);
+    }
+
+    /**
+     * Endpoint: /patient/update
+     * Desc: Update a patient
+     *
+     * @param id patient id
+     */
+    @GetMapping("/delete/{id}")
+    public void deletePatient(@PathVariable long id) {
+        this.patientService.delete(id);
+    }
 }
