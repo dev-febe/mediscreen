@@ -54,4 +54,27 @@ public class NoteController {
     public Note postNote(@RequestBody Note note) {
         return this.noteService.save(note);
     }
+
+    /**
+     * Endpoint: /note/add
+     * Desc: Save note
+     *
+     * @param note note to update
+     * @return note updated
+     */
+    @PostMapping("/update/{id}")
+    public Note putPatient(@RequestBody Note note) {
+        return this.noteService.save(note);
+    }
+
+    /**
+     * Endpoint: /note/delete/{id}
+     * Desc: Save note
+     *
+     * @param id note to delete
+     */
+    @GetMapping("/delete/{id}")
+    public void deletePatient(@PathVariable long id) {
+        this.noteService.delete(id);
+    }
 }
