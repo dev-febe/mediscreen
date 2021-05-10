@@ -9,8 +9,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.junit.jupiter.MockitoSettings;
-import org.mockito.quality.Strictness;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -48,4 +46,16 @@ public class PatientServiceTest {
 
         Assert.assertEquals(patient.getFamily(), expectedPatient.getFamily());
     }
+
+    @Test
+    public void test_save() {
+        Patient expectedPatient = new Patient(1L, "Kone", "Ben Fousseni Christ", new Date(), "F", "Abidjan BP 01", "+22577059870", 24);
+
+        Mockito.when(patientRepository.save(any())).thenReturn(expectedPatient);
+
+        Patient patient = patientService.save(expectedPatient);
+
+        Assert.assertEquals(patient.getFamily(), expectedPatient.getFamily());
+    }
+
 }

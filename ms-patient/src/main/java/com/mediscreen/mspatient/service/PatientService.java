@@ -67,4 +67,14 @@ public class PatientService {
 
         return patient;
     }
+
+    /**
+     * Save a patients
+     *
+     * @param patient patient to save
+     * @return patient saved
+     */
+    public Patient save(Patient patient) {
+        return this.patientRepository.save(patient);
+    }
 }

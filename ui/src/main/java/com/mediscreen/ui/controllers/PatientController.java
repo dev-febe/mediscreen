@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller for handling patient UI CRUD
+ */
 @Controller
 public class PatientController {
     PatientService patientService;
@@ -16,6 +19,12 @@ public class PatientController {
         this.patientService = patientService;
     }
 
+    /**
+     * Endpoint: /patient/list
+     * Desc: Get the list of all patient
+     *
+     * @return List of patient
+     */
     @GetMapping("/patient/list")
     public String getPatients(Model model) {
         List<Patient> patients = this.patientService.getPatients();
@@ -25,17 +34,35 @@ public class PatientController {
         return "patient/list";
     }
 
+    /**
+     * Endpoint: /patient/list
+     * Desc: show form for adding new patient
+     *
+     * @return List of patient
+     */
     @GetMapping("/patient/add")
     public String showAddPatientForm(@ModelAttribute("patient") Patient patient) {
         return "patient/add";
     }
 
+    /**
+     * Endpoint: /patient/list
+     * Desc: Create a new patient
+     *
+     * @return List of patient
+     */
     @PostMapping("/patient/add")
     public String submitAddPatientForm(@ModelAttribute("patient") Patient patient) {
         this.patientService.savePatient(patient);
         return "redirect:/patient/list";
     }
 
+    /**
+     * Endpoint: /patient/list
+     * Desc: Update a patient by given id
+     *
+     * @return List of patient
+     */
     @GetMapping("/patient/update/{id}")
     public String showUpdatePatientForm(@PathVariable long id, Model model) {
         Patient patient = this.patientService.getPatient(id);
@@ -44,6 +71,12 @@ public class PatientController {
         return "patient/update";
     }
 
+    /**
+     * Endpoint: /patient/list
+     * Desc: Delete a patient
+     *
+     * @return List of patient
+     */
     @GetMapping("/patient/delete/{id}")
     public String deletePatient(@PathVariable long id) {
         this.patientService.deletePatient(id);
