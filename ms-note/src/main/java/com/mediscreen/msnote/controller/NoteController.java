@@ -1,12 +1,11 @@
 package com.mediscreen.msnote.controller;
 
+import com.mediscreen.msnote.entity.Note;
 import com.mediscreen.msnote.model.NoteModel;
 import com.mediscreen.msnote.service.NoteService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.OptionalLong;
 
 /**
  * Controller for handling note CRUD
@@ -36,11 +35,23 @@ public class NoteController {
      * Endpoint: /note/{id}
      * Desc: Get specific note
      *
-     * @param id note tid
+     * @param id note id
      * @return a specific note
      */
     @GetMapping("/{id}")
     public NoteModel getNote(@PathVariable Long id) {
         return this.noteService.getById(id);
+    }
+
+    /**
+     * Endpoint: /note/add
+     * Desc: Save note
+     *
+     * @param note note to save
+     * @return note saved
+     */
+    @PostMapping("/add")
+    public Note postNote(@RequestBody Note note) {
+        return this.noteService.save(note);
     }
 }
