@@ -77,4 +77,34 @@ public class PatientService {
     public Patient save(Patient patient) {
         return this.patientRepository.save(patient);
     }
+
+
+    /**
+     * Save a patients
+     *
+     * @param patientToUpdate patient to update
+     * @return patient saved
+     */
+    public Patient update(long id, Patient patientToUpdate) {
+        Patient patient = this.getById(id);
+
+        patient.setFamily(patientToUpdate.getFamily());
+        patient.setGiven(patientToUpdate.getGiven());
+        patient.setDob(patientToUpdate.getDob());
+        patient.setSex(patientToUpdate.getSex());
+        patient.setAddress(patientToUpdate.getAddress());
+        patient.setPhone(patientToUpdate.getPhone());
+
+        return this.patientRepository.save(patient);
+    }
+
+    /**
+     * Delete a patient
+     *
+     * @param id patient id
+     */
+    public void delete(long id) {
+        Patient patient = this.getById(id);
+        this.patientRepository.delete(patient);
+    }
 }

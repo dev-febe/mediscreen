@@ -58,4 +58,29 @@ public class PatientServiceTest {
         Assert.assertEquals(patient.getFamily(), expectedPatient.getFamily());
     }
 
+
+    @Test
+    public void test_update() {
+        Patient expectedPatient = new Patient(1L, "Kone", "Ben Fousseni Christ", new Date(), "F", "Abidjan BP 01", "+22577059870", 24);
+
+        Mockito.when(patientRepository.findById(any())).thenReturn(Optional.of(expectedPatient));
+        Mockito.when(patientRepository.save(any())).thenReturn(expectedPatient);
+
+        Patient patient = patientService.update(1L, expectedPatient);
+
+        Assert.assertEquals(patient.getFamily(), expectedPatient.getFamily());
+    }
+
+
+    @Test
+    public void test_delete() {
+        Patient expectedPatient = new Patient(1L, "Kone", "Ben Fousseni Christ", new Date(), "F", "Abidjan BP 01", "+22577059870", 24);
+
+        Mockito.when(patientRepository.findById(any())).thenReturn(Optional.of(expectedPatient));
+
+        patientService.delete(1L);
+
+        Mockito.verify(patientRepository, Mockito.times(1)).delete(expectedPatient);
+    }
+
 }

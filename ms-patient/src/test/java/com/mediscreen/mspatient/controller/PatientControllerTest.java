@@ -53,6 +53,26 @@ public class PatientControllerTest {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    public void testSubmitUpdateForm() throws Exception {
+        Patient patient = new Patient();
+        patient.setFamily("Kone");
+        patient.setGiven("Ben Fousseni Christ");
+        patient.setSex("M");
+        patient.setDob(new Date());
+
+        mockMvc.perform(post("/patient/update/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(patient)))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testDelete() throws Exception {
+        mockMvc.perform(get("/patient/delete/1"))
+                .andExpect(status().isOk());
+    }
+
     public static String asJsonString(final Object obj) {
         try {
             return new ObjectMapper().writeValueAsString(obj);
