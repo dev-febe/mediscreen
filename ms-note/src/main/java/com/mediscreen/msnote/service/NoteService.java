@@ -113,4 +113,14 @@ public class NoteService {
         note.setId(sequenceGeneratorService.generateSequence(Note.SEQUENCE_NAME));
         return this.noteRepository.save(note);
     }
+
+    /**
+     * Delete a note
+     *
+     * @param id note id to delete
+     */
+    public void delete(long id) {
+        Optional<Note> note = this.noteRepository.findById(id);
+        note.ifPresent(value -> this.noteRepository.delete(value));
+    }
 }

@@ -29,6 +29,9 @@ public class NoteServiceTest {
     @Mock
     NoteRepository noteRepository;
 
+    @Mock
+    SequenceGeneratorService sequenceGeneratorService;
+
     @InjectMocks
     NoteService noteService;
 
@@ -63,4 +66,40 @@ public class NoteServiceTest {
 
         Assert.assertEquals(note.getContent(), expectedNote.getContent());
     }
+
+    @Test
+    public void test_save() {
+        Note expectedNote = new Note(1L, 1L, "Ben Fousseni Christ");
+
+        Mockito.when(noteRepository.save(any())).thenReturn(expectedNote);
+
+        Note note = noteService.save(expectedNote);
+
+        Assert.assertEquals(note.getContent(), expectedNote.getContent());
+    }
+
+
+    @Test
+    public void test_update() {
+        Note expectedNote = new Note(1L, 1L, "Ben Fousseni Christ");
+
+        Mockito.when(noteRepository.save(any())).thenReturn(expectedNote);
+
+        Note note = noteService.save(expectedNote);
+
+        Assert.assertEquals(note.getContent(), expectedNote.getContent());
+    }
+
+
+    @Test
+    public void test_delete() {
+        Note expectedNote = new Note(1L, 1L, "Ben Fousseni Christ");
+
+        Mockito.when(noteRepository.findById(any())).thenReturn(Optional.of(expectedNote));
+
+        noteService.delete(1L);
+
+        Mockito.verify(noteRepository, Mockito.times(1)).delete(expectedNote);
+    }
+
 }

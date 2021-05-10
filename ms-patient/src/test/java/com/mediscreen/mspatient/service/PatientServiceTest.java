@@ -82,5 +82,4 @@ public class PatientServiceTest {
 
         Mockito.verify(patientRepository, Mockito.times(1)).delete(expectedPatient);
     }
-
 }

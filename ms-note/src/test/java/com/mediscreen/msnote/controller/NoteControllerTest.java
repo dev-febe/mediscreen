@@ -49,6 +49,24 @@ public class NoteControllerTest {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    public void testSubmitUpdateForm() throws Exception {
+        Note note = new Note();
+        note.setPatientId(1L);
+        note.setContent("Note Content");
+
+        mockMvc.perform(post("/note/add")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(note)))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testDelete() throws Exception {
+        mockMvc.perform(get("/note/delete/1"))
+                .andExpect(status().isOk());
+    }
+
     public static String asJsonString(final Object obj) {
         try {
             return new ObjectMapper().writeValueAsString(obj);
