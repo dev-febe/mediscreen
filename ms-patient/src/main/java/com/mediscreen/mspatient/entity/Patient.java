@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Data
@@ -22,22 +24,26 @@ public class Patient {
     /**
      * Patient lastname
      */
+    @NotBlank(message = "Family name should not be blank")
     private String family;
 
     /**
      * Patient firstname
      */
+    @NotBlank(message = "Given name should not be blank")
     private String given;
 
     /**
      * Patient birthdate
      */
     @JsonFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "Day of birthday should not be blank")
     private Date dob;
 
     /**
      * Patient sex
      */
+    @NotBlank(message = "Sex should not be blank")
     private String sex;
 
     /**
