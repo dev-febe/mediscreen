@@ -102,4 +102,15 @@ public class NoteService {
 
         return updateNotePatient(note.get(), patient);
     }
+
+    /**
+     * Save a note
+     *
+     * @param note note to save
+     * @return note saved
+     */
+    public Note save(Note note) {
+        note.setId(sequenceGeneratorService.generateSequence(Note.SEQUENCE_NAME));
+        return this.noteRepository.save(note);
+    }
 }
