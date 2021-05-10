@@ -1,0 +1,24 @@
+.bg-primary {
+    background-color: #189AB4 !important
+}
+
+.btn-primary {
+    border-color: #189AB4;
+    color: white;
+    background-color: #189AB4;
+}
+
+* {
+    font-family: 'Product sans', sans-serif;
+}
+
+thead {
+    background-color: #189AB4;
+    opacity: 0.8;
+    color: white;
+}
+.table-title {
+    font-size: 2em;
+    color: #189AB4;
+    font-weight: bold;
+}
