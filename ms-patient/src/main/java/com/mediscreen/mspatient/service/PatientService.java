@@ -78,7 +78,6 @@ public class PatientService {
         return this.patientRepository.save(patient);
     }
 
-
     /**
      * Save a patients
      *
