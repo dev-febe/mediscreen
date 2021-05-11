@@ -30,7 +30,7 @@ Use one of the several ways of running a Spring Boot application. Below are just
 
 ## To test the application
   1. The client should serve on `http://localhost:8004`
-  1. Get list of patients with /patient/list url.
+  2. Get list of patients with /patient/list url.
   
     `$ curl --location --request GET 'http://localhost:8002/patient/list'`
   You'll get a response as in below.
@@ -57,7 +57,7 @@ Use one of the several ways of running a Spring Boot application. Below are just
              "age": 46
          }
      ]`
- 2. Add a new patient with /patient/add url.
+  3. Add a new patient with /patient/add url.
   
  
     ` $ curl --location --request POST 'http://localhost:8002/patient/add' \
@@ -84,7 +84,7 @@ Use one of the several ways of running a Spring Boot application. Below are just
        "age": 0
    }`
   
-  3. Add new note with /note/list.
+  4. Add new note with /note/list.
 
     `$ curl --location --request POST 'http://localhost:8002/patient/add' \
      --header 'Content-Type: application/json' \
