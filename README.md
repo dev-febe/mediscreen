@@ -5,6 +5,13 @@
 
 This is a Java / Maven / Spring Boot application which provides RESTful services.
 
+## Project description
+### Class Diagram
+![alt text](docs/class-diagram.png)
+
+### Architecture
+![alt text](docs/architecture.png)
+
 ## Installation Instructions
   You can import the project as a maven application to your favorite IDE. I made my tests by using intellij.
   
@@ -13,7 +20,9 @@ This is a Java / Maven / Spring Boot application which provides RESTful services
 ## Requirement package
 1. Java 11
 2. Spring Boot
-3. Docker 
+3. Mysql *(Optional If you don't want to use docker)
+4. MongoDb *(Optional If you don't want to use docker)
+3. Docker
 4. Docker-Compose
 
 ## To run the application
