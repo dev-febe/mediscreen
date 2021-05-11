@@ -47,7 +47,7 @@
             </thead>
             <tbody>
             <tr th:each="note: ${notes}">
-                <td><span th:text="${note.patient.family}"></span></td>
+                <td><span th:text="${note.patient.family} + ' ' + ${note.patient.given}"></span></td>
                 <td><span th:text="${note.content}"></span></td>
                 <td class="text-center">
                     <a th:href="@{/note/update/{id}(id=${note.id})}"><span class="fas fa-edit"></span></a>

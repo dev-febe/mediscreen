@@ -22,5 +22,8 @@ public interface MsPatientProxy {
 
     @PostMapping("/patient/add")
     void savePatient(@RequestBody Patient patient);
+
+    @PostMapping("/patient/update/{id}")
+    Patient updatePatient(@PathVariable Long id, @RequestBody Patient patient);
 }
 

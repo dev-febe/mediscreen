@@ -123,4 +123,10 @@ public class NoteService {
         Optional<Note> note = this.noteRepository.findById(id);
         note.ifPresent(value -> this.noteRepository.delete(value));
     }
+
+    public Note update(long id, Note note) {
+        NoteModel noteModel = getById(id);
+        note.setId(noteModel.getId());
+        return this.noteRepository.save(note);
+    }
 }

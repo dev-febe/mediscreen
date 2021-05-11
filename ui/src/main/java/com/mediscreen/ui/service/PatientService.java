@@ -56,4 +56,7 @@ public class PatientService {
         this.msPatientProxy.savePatient(patient);
     }
 
+    public void updatePatient(long id, Patient patient) {
+        this.msPatientProxy.updatePatient(id, patient);
+    }
 }

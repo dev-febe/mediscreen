@@ -6,11 +6,13 @@ import com.mediscreen.ui.service.NoteService;
 import com.mediscreen.ui.service.PatientService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -30,6 +32,7 @@ public class NoteController {
 
         model.addAttribute("notes", notes);
 
+
         return "note/list";
     }
 
@@ -43,24 +46,52 @@ public class NoteController {
     }
 
     @PostMapping("/note/add")
-    public String submitAddNoteForm(@ModelAttribute("note") Note note, Model model) {
-        this.noteService.saveNote(note);
+    public String submitAddNoteForm(@ModelAttribute("note") @Valid Note note, BindingResult bindingResult, Model model) {
+        if (!bindingResult.hasErrors()) {
+            this.noteService.saveNote(note);
 
-        List<Note> notes = this.noteService.getNotes();
-        model.addAttribute("notes", notes);
+            List<Note> notes = this.noteService.getNotes();
+            model.addAttribute("notes", notes);
 
-        return "redirect:/note/list";
+            return "redirect:/note/list";
+        }
+
+        List<Patient> patients = this.patientService.getPatients();
+        model.addAttribute("patients", patients);
+
+        return "note/add";
     }
 
     @GetMapping("/note/update/{id}")
     public String showUpdateNoteForm(@PathVariable long id, Model model) {
         Note note = this.noteService.getNote(id);
-        List<Note> notes = this.noteService.getNotes();
+        List<Patient> patients = this.patientService.getPatients();
 
+        model.addAttribute("patients", patients);
         model.addAttribute("note", note);
-        model.addAttribute("notes", notes);
 
-        return "redirect:/note/list";
+        return "/note/update";
+    }
+
+    @PostMapping("/note/update/{id}")
+    public String showSubmitNoteForm(
+            @PathVariable long id,
+            @ModelAttribute("note") @Valid Note note,
+            BindingResult bindingResult,
+            Model model
+    ) {
+        if (!bindingResult.hasErrors()) {
+            this.noteService.updateNote(id, note);
+
+            return "redirect:/note/list";
+        }
+        note = this.noteService.getNote(id);
+        List<Patient> patients = this.patientService.getPatients();
+
+        model.addAttribute("patients", patients);
+        model.addAttribute("note", note);
+
+        return "note/update";
     }
 
     @GetMapping("/note/delete/{id}")

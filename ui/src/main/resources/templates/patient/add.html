@@ -39,6 +39,7 @@
                 <div class="col-sm-10">
                     <input type="text" th:field="*{family}" id="family" placeholder="Enter family name"
                            class="col-4 form-control">
+                    <p class="text-danger" th:if="${#fields.hasErrors('family')}" th:errors="*{family}"></p>
                 </div>
             </div>
             <div class="form-group">
@@ -46,33 +47,39 @@
                 <div class="col-sm-10">
                     <input type="text" th:field="*{given}" id="given" placeholder="Enter given name"
                            class="col-4 form-control">
+                    <p class="text-danger" th:if="${#fields.hasErrors('given')}" th:errors="*{given}"></p>
                 </div>
             </div>
             <div class="form-group">
                 <label for="birthdate" class="col-sm-2 control-label">Birthdate</label>
                 <div class="col-sm-10">
                     <input type="date" th:field="*{dob}" th:value="${#dates.format(birthdate, 'yyyy-MM-dd')}" name="birthdate" id="birthdate" placeholder="Enter birthdate" class="col-4 form-control">
+                    <p class="text-danger" th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}"></p>
                 </div>
             </div>
             <div class="form-group">
                 <label for="sex" class="col-sm-2 control-label">Sex</label>
                 <div class="col-sm-10">
                     <select id="sex" th:field="*{sex}" class="col-4 form-control">
+                        <option selected value="">Select a sex</option>
                         <option value="M">M</option>
                         <option value="F">F</option>
                     </select>
+                    <p class="text-danger" th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}"></p>
                 </div>
             </div>
             <div class="form-group">
                 <label for="address" class="col-sm-2 control-label">Address</label>
                 <div class="col-sm-10">
                     <input type="text" th:field="*{address}" id="address" placeholder="Enter address" class="col-4 form-control">
+                    <p class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></p>
                 </div>
             </div>
             <div class="form-group">
                 <label for="phone" class="col-sm-2 control-label">Phone</label>
                 <div class="col-sm-10">
                     <input type="tel" th:field="*{phone}"  id="phone" placeholder="Enter phone" class="col-4 form-control">
+                    <p class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p>
                 </div>
             </div>
             <div class="form-group">
@@ -84,6 +91,5 @@
         </form>
     </div>
 </div>
-<script type="text/javascript" src="webjars/bootstrap/4.0.0-2/js/bootstrap.min.js"></script>
 </body>
 </html>

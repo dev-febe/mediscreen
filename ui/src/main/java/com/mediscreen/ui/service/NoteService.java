@@ -29,4 +29,9 @@ public class NoteService {
     public void deleteNote(long id) {
         this.msNoteProxy.deleteNote(id);
     }
+
+    public void updateNote(long id, Note note) {
+        note.setPatientId(note.getPatient().getId());
+        this.msNoteProxy.updateNote(id, note);
+    }
 }

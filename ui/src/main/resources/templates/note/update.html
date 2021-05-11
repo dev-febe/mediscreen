@@ -26,64 +26,50 @@
                     </li>
                 </ul>
             </div>
-        </nav>    </div>
+        </nav>
+    </div>
     <div class="row m-0 w-75 m-auto d-flex justify-content-between m-5 pb-3">
         <div>
-            <h3 class="table-title">Update patient</h3>
+            <h3 class="table-title">Update note</h3>
         </div>
     </div>
     <div class="row m-0 w-75 m-auto">
-        <form method="post" th:action="@{/patient/add}" th:object="${patient}" class="form-horizontal w-100">
-            <div class="form-group">
-                <label for="family" class="col-sm-2 control-label">Family name</label>
-                <div class="col-sm-10">
-                    <input type="text" th:field="*{family}" id="family" placeholder="Enter family name"
-                           class="col-4 form-control">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="given" class="col-sm-2 control-label">Given name</label>
-                <div class="col-sm-10">
-                    <input type="text" th:field="*{given}" id="given" placeholder="Enter given name"
-                           class="col-4 form-control">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="birthdate" class="col-sm-2 control-label">Birthdate</label>
-                <div class="col-sm-10">
-                    <input type="date" th:field="*{dob}" th:value="${#dates.format(birthdate, 'yyyy-MM-dd')}" name="birthdate" id="birthdate" placeholder="Enter birthdate" class="col-4 form-control">
-                </div>
-            </div>
+        <form method="post" th:action="@{/note/update/{id}(id=${note.id})}" th:object="${note}"
+              class="form-horizontal w-100">
             <div class="form-group">
                 <label for="sex" class="col-sm-2 control-label">Sex</label>
                 <div class="col-sm-10">
-                    <select id="sex" th:field="*{sex}" class="col-4 form-control">
-                        <option value="M">M</option>
-                        <option value="F">F</option>
+                    <select id="sex" th:field="*{patient.id}" class="col-4 form-control">
+                        <option selected value="">Select a patient</option>
+                        <option
+                                th:each="patient: ${patients}"
+                                th:value="${patient.id}"
+                                th:text="${patient.family} + ' ' + ${patient.given}"
+                        ></option>
                     </select>
+                    <p class="text-danger" th:if="${#fields.hasErrors('patientId')}" th:errors="*{patientId}"></p>
                 </div>
             </div>
             <div class="form-group">
-                <label for="address" class="col-sm-2 control-label">Address</label>
+                <label for="note" class="col-sm-2 control-label">Note</label>
                 <div class="col-sm-10">
-                    <input type="text" th:field="*{address}" id="address" placeholder="Enter address" class="col-4 form-control">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="phone" class="col-sm-2 control-label">Phone</label>
-                <div class="col-sm-10">
-                    <input type="tel" th:field="*{phone}"  id="phone" placeholder="Enter phone" class="col-4 form-control">
+                    <textarea
+                            type="text"
+                            th:field="*{content}"
+                            id="note"
+                            placeholder="Enter patient note"
+                            class="col-4 form-control"
+                    ></textarea>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-12">
-                    <a class="btn btn-danger btn-sm" href="/patient/list">Cancel</a>
-                    <input class="btn btn-primary btn-sm" type="submit" value="Create patient">
+                    <a class="btn btn-danger btn-sm" href="/note/list">Cancel</a>
+                    <input class="btn btn-primary btn-sm" type="submit" value="Update note">
                 </div>
             </div>
         </form>
     </div>
 </div>
-<script type="text/javascript" src="webjars/bootstrap/4.0.0-2/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -26,7 +26,8 @@
                     </li>
                 </ul>
             </div>
-        </nav>    </div>
+        </nav>
+    </div>
     <div class="row m-0 w-75 m-auto d-flex justify-content-between m-5 pb-3">
         <div>
             <h3 class="table-title">Patient list</h3>
@@ -41,7 +42,7 @@
             <tr>
                 <td>Family</td>
                 <td>Given</td>
-                <td>Birthdate</td>
+                <td>Age</td>
                 <td>Sex</td>
                 <td>Address</td>
                 <td>Phone</td>
@@ -52,7 +53,7 @@
             <tr th:each="patient: ${patients}">
                 <td><span th:text="${patient.family}"></span></td>
                 <td><span th:text="${patient.given}"></span></td>
-                <td><span th:text="${patient.dob}"></span></td>
+                <td><span th:text="${patient.age}"></span></td>
                 <td><span th:text="${patient.sex}"></span></td>
                 <td><span th:text="${patient.address}"></span></td>
                 <td><span th:text="${patient.phone}"></span></td>

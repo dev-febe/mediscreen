@@ -4,8 +4,10 @@ import com.mediscreen.ui.model.Patient;
 import com.mediscreen.ui.service.PatientService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -52,9 +54,13 @@ public class PatientController {
      * @return List of patient
      */
     @PostMapping("/patient/add")
-    public String submitAddPatientForm(@ModelAttribute("patient") Patient patient) {
-        this.patientService.savePatient(patient);
-        return "redirect:/patient/list";
+    public String submitAddPatientForm(@ModelAttribute("patient") @Valid Patient patient, BindingResult bindingResult) {
+        if (!bindingResult.hasErrors()) {
+            this.patientService.savePatient(patient);
+            return "redirect:/patient/list";
+        }
+
+        return "patient/add";
     }
 
     /**
@@ -68,6 +74,22 @@ public class PatientController {
         Patient patient = this.patientService.getPatient(id);
 
         model.addAttribute("patient", patient);
+        return "patient/update";
+    }
+
+    /**
+     * Endpoint: /patient/list
+     * Desc: Create a new patient
+     *
+     * @return List of patient
+     */
+    @PostMapping("/patient/update/{id}")
+    public String submitUpdatePatientForm(@PathVariable long id, @ModelAttribute("patient") @Valid Patient patient, BindingResult bindingResult) {
+        if (!bindingResult.hasErrors()) {
+            this.patientService.updatePatient(id, patient);
+            return "redirect:/patient/list";
+        }
+
         return "patient/update";
     }
 

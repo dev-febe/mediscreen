@@ -63,8 +63,8 @@ public class NoteController {
      * @return note updated
      */
     @PostMapping("/update/{id}")
-    public Note putPatient(@RequestBody Note note) {
-        return this.noteService.save(note);
+    public Note putPatient(@PathVariable long id, @RequestBody Note note) {
+        return this.noteService.update(id, note);
     }
 
     /**
