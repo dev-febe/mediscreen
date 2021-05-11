@@ -1,0 +1,46 @@
+version: '3'
+services:
+  patient_db:
+    image: mysql:8.0
+    restart: unless-stopped
+    ports:
+      - "3301:3306"
+    environment:
+      MYSQL_DATABASE: "patient_db"
+      MYSQL_ROOT_PASSWORD: "root"
+    volumes:
+      - ./sql-dump:/docker-entrypoint-initdb.d
+    command: '--default-authentication-plugin=mysql_native_password'
+  note_db:
+    image: mongo:3.2.4
+    ports:
+      - 27018:27017
+    command: --smallfiles
+  ms_note:
+    build: ./ms-note
+    ports:
+      - 8001:8080
+    links:
+      - note_db
+      - ms_patient:ms-patient
+  ms_patient:
+    build: ./ms-patient
+    ports:
+      - 8002:8080
+    links:
+      - patient_db
+  ms_report:
+    build: ./ms-report
+    ports:
+      - 8003:8080
+    links:
+      - ms_note:ms-note
+      - ms_patient:ms-patient
+  ui:
+    build: ./ui
+    ports:
+      - 8004:8080
+    links:
+      - ms_note:ms-note
+      - ms_patient:ms-patient
+      - ms_report:ms-report

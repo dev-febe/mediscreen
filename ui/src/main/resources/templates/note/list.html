@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mediscreen</title>
+    <link href="http://fonts.cdnfonts.com/css/product-sans" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <script src="https://kit.fontawesome.com/48783a79b8.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container-fluid p-0">
+    <div class="row m-0">
+        <nav class="navbar navbar-expand-lg navbar-light bg-primary w-100 m-0 mb-5">
+            <div class="container-fluid">
+                <a class="navbar-brand text-white" href="/">Mediscreen</a>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-white">
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" href="/patient/list">Patients</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/note/list">Notes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/report/generate">Reports</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="row m-0 w-75 m-auto d-flex justify-content-between m-5 pb-3">
+        <div>
+            <h3 class="table-title">Note list</h3>
+        </div>
+        <div>
+            <a th:href="@{/note/add}" class="btn btn-primary bg-primary text-white">Add new note</a>
+        </div>
+    </div>
+    <div class="row m-0 w-75 m-auto">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <td>Patient</td>
+                <td>Note</td>
+                <td class="text-center">Actions</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="note: ${notes}">
+                <td><span th:text="${note.patient.family} + ' ' + ${note.patient.given}"></span></td>
+                <td><span th:text="${note.content}"></span></td>
+                <td class="text-center">
+                    <a th:href="@{/note/update/{id}(id=${note.id})}"><span class="fas fa-edit"></span></a>
+                    <a th:href="@{/note/delete/{id}(id=${note.id})}"><span class="fas fa-trash"></span></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
