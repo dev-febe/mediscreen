@@ -27,13 +27,13 @@ public class NoteControllerTest {
 
     @Test
     public void testShow() throws Exception {
-        mockMvc.perform(get("/note/list"))
+        mockMvc.perform(get("/patHistory/list"))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void testShowAddForm() throws Exception {
-        mockMvc.perform(get("/note/1"))
+        mockMvc.perform(get("/patHistory/1"))
                 .andExpect(status().isOk());
     }
 
@@ -43,7 +43,7 @@ public class NoteControllerTest {
         note.setPatientId(1L);
         note.setContent("Note Content");
 
-        mockMvc.perform(post("/note/add")
+        mockMvc.perform(post("/patHistory/add")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(note)))
                 .andExpect(status().isOk());
@@ -55,7 +55,7 @@ public class NoteControllerTest {
         note.setPatientId(1L);
         note.setContent("Note Content");
 
-        mockMvc.perform(post("/note/add")
+        mockMvc.perform(post("/patHistory/update/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(note)))
                 .andExpect(status().isOk());
@@ -63,7 +63,7 @@ public class NoteControllerTest {
 
     @Test
     public void testDelete() throws Exception {
-        mockMvc.perform(get("/note/delete/1"))
+        mockMvc.perform(get("/patHistory/delete/1"))
                 .andExpect(status().isOk());
     }
 

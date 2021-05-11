@@ -42,7 +42,7 @@
                         <option
                                 th:each="patient: ${patients}"
                                 th:value="${patient.id}"
-                                th:text="${patient.family}"
+                                th:text="${patient.family} + ' ' + ${patient.given}"
                         ></option>
                     </select>
                 </div>
@@ -53,7 +53,9 @@
                     <input class="btn btn-primary btn-sm" type="submit" value="Generate rapport">
                 </div>
             </div>
-            <div th:if="${reportDescription}" class="alert alert-success" th:text="${reportDescription}"></div>
+            <div th:if="${risk} == 'None'" class="alert alert-success" th:text="${reportDescription}"></div>
+            <div th:if="${risk} != 'None' and ${risk} !=''" class="alert alert-danger" th:text="${reportDescription}"></div>
+
         </form>
     </div>
 

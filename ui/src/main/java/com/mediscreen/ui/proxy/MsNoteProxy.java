@@ -8,22 +8,21 @@ import java.util.List;
 
 @FeignClient(name = "ms-note", url = "${proxy.ms.note.url}")
 public interface MsNoteProxy {
-    @GetMapping("/note/{id}")
+    @GetMapping("/patHistory/{id}")
     Note getNote(@PathVariable Long id);
 
-    @GetMapping("/note/list")
+    @GetMapping("/patHistory/list")
     List<Note> getNotes(@RequestParam long patientId);
 
-    @GetMapping("/note/list")
+    @GetMapping("/patHistory/list")
     List<Note> getNotes();
 
-    @PostMapping("/note/add")
+    @PostMapping("/patHistory/add")
     void saveNote(Note patient);
 
-    @PostMapping("/note/update/{id}")
+    @PostMapping("/patHistory/update/{id}")
     Note updateNote(@PathVariable long id, @RequestBody Note note);
 
-    @GetMapping("/note/delete/{id}")
+    @GetMapping("/patHistory/delete/{id}")
     void deleteNote(@PathVariable long id);
-
 }

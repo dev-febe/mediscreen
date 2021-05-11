@@ -7,9 +7,7 @@ import com.mediscreen.msreport.proxy.MsNoteProxy;
 import com.mediscreen.msreport.proxy.MsPatientProxy;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
@@ -31,7 +29,6 @@ public class ReportService {
     public Report getReportByPatient(Long patientId) {
         Patient patient = this.patientProxy.getPatient(patientId);
         List<Note> notes = this.noteProxy.getNotes(patientId);
-        AtomicInteger triggerNb = new AtomicInteger();
 
         // TODO create a table for manage this part
         List<String> triggers = new ArrayList<>() {{
@@ -48,15 +45,16 @@ public class ReportService {
             add("Anticorps");
         }};
 
+        Set<String> triggersFound = new LinkedHashSet<>();
         notes.forEach(note -> {
             triggers.forEach(trigger -> {
                 if (note.getContent().contains(trigger)) {
-                    triggerNb.addAndGet(1);
+                    triggersFound.add(trigger);
                 }
             });
         });
 
-        String risk = getRisk(patient.getAge(), patient.getSex(), triggerNb.get());
+        String risk = getRisk(patient.getAge(), patient.getSex(), triggersFound.size());
         String reportDescription = "Patient: " + patient.getFamily() + " " + patient.getGiven() + " (age " + patient.getAge() + ") diabetes assessment is: " + risk + "";
 
         return new Report(risk, reportDescription);
@@ -72,27 +70,18 @@ public class ReportService {
      */
     private String getRisk(int age, String patSex, int trigger) {
         String risk = "None";
-        String sex = "M";
-        if (age > 30) {
-            if (trigger == 2)
-                risk = "Borderline";
-            if (trigger == 6)
-                risk = "In Danger";
-            if (trigger >= 6)
-                risk = "Early onset";
-        } else {
-            if (sex.equals(patSex)) {
-                if (trigger == 3)
-                    risk = "In Danger";
-                if (trigger == 5)
-                    risk = "Early onset";
-            } else {
-                if (trigger == 4)
-                    risk = "In Danger";
-                if (trigger == 7)
-                    risk = "Early onset";
-            }
-        }
+
+        boolean isBorderline = (age > 30 && trigger >= 2);
+        risk = isBorderline ? "Borderline" : risk;
+
+        boolean isInDanger = (age < 30 && (patSex.equals("M") && trigger >= 3) || patSex.equals("F") && trigger >= 4)
+                || (age > 30 && trigger >= 6);
+        risk = isInDanger ? "In Danger" : risk;
+
+        boolean isEarlyOnset = (age < 30 && (patSex.equals("M") && trigger >= 5 || patSex.equals("F") && trigger >= 7))
+                || (age > 30 && trigger >= 8);
+        risk = isEarlyOnset ? "EarlyOnset" : risk;
+
         return risk;
     }
 }

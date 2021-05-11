@@ -24,7 +24,7 @@ public class ReportControllerTest {
 
     @Test
     public void testShow() throws Exception {
-        mockMvc.perform(get("/getReportByPatient/1"))
+        mockMvc.perform(get("/assess/1"))
                 .andExpect(status().isOk());
     }
 }

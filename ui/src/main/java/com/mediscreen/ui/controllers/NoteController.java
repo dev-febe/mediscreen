@@ -70,7 +70,7 @@ public class NoteController {
         model.addAttribute("patients", patients);
         model.addAttribute("note", note);
 
-        return "/note/update";
+        return "note/update";
     }
 
     @PostMapping("/note/update/{id}")

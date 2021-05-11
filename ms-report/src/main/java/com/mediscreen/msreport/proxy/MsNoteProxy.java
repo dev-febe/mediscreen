@@ -9,6 +9,6 @@ import java.util.List;
 
 @FeignClient(name = "ms-note", url = "${proxy.ms.note.url}")
 public interface MsNoteProxy {
-    @GetMapping("/note/list")
+    @GetMapping("/patHistory/list")
     List<Note> getNotes(@RequestParam Long patientId);
 }

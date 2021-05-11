@@ -15,14 +15,14 @@ public class ReportController {
     }
 
     /**
-     * Endpoint: /getReportByPatient/{patientId}
+     * Endpoint: /assess/{id}
      * Desc: Get patient report
      *
-     * @param patientId patient id
+     * @param id patient id
      * @return Report per patient
      */
-    @RequestMapping("/getReportByPatient/{patientId}")
-    public Report getReportByPatient(@PathVariable Long patientId) {
-        return this.reportService.getReportByPatient(patientId);
+    @RequestMapping("/assess/{id}")
+    public Report getReportByPatient(@PathVariable Long id) {
+        return this.reportService.getReportByPatient(id);
     }
 }

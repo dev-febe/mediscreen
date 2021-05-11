@@ -27,6 +27,7 @@ public class ReportController {
         List<Patient> patients = this.patientService.getPatients();
 
         model.addAttribute("patients", patients);
+        model.addAttribute("risk", "");
 
         return "report/generate";
     }
@@ -38,6 +39,7 @@ public class ReportController {
         Report reportResult = this.reportService.generateReport(report);
 
         model.addAttribute("patients", patients);
+        model.addAttribute("risk", reportResult.getRisk());
         model.addAttribute("reportDescription", reportResult.getDescription());
 
         return "report/generate";

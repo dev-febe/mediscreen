@@ -82,10 +82,15 @@ public class NoteServiceTest {
     @Test
     public void test_update() {
         Note expectedNote = new Note(1L, 1L, "Ben Fousseni Christ");
+        PatientModel expectedPatient = new PatientModel(1L, "Kone", "Ben Fousseni Christ", new Date(), "F", "Abidjan BP 01", "+22577059870", 24);
 
         Mockito.when(noteRepository.save(any())).thenReturn(expectedNote);
+        Mockito.when(noteRepository.findById(any())).thenReturn(Optional.of(expectedNote));
+        Mockito.when(msPatientProxy.getPatient(any())).thenReturn(expectedPatient);
 
-        Note note = noteService.save(expectedNote);
+
+
+        Note note = noteService.update(1L, expectedNote);
 
         Assert.assertEquals(note.getContent(), expectedNote.getContent());
     }

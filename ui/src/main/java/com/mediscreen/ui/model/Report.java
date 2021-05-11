@@ -9,5 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Report {
     private long patientId;
+    private String risk;
     private String description;
 }

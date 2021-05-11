@@ -18,8 +18,9 @@ public class NoteService {
         return this.msNoteProxy.getNotes();
     }
 
-    public void saveNote(Note patient) {
-        this.msNoteProxy.saveNote(patient);
+    public void saveNote(Note note) {
+        note.setPatientId(note.getPatient().getId());
+        this.msNoteProxy.saveNote(note);
     }
 
     public Note getNote(long id) {

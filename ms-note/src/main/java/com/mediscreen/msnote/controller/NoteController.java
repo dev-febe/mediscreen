@@ -11,7 +11,7 @@ import java.util.List;
  * Controller for handling note CRUD
  */
 @RestController
-@RequestMapping("/note")
+@RequestMapping("/patHistory")
 public class NoteController {
     NoteService noteService;
 
