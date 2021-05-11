@@ -58,7 +58,7 @@ Use one of the several ways of running a Spring Boot application. Below are just
      ]`
  2. Add a new patient with /patient/add url.
   
-  
+ 
     ` $ curl --location --request POST 'http://localhost:8002/patient/add' \
      --header 'Content-Type: application/json' \
      --data-raw '{
