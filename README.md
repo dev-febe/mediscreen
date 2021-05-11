@@ -14,23 +14,21 @@ This is a Java / Maven / Spring Boot application which provides RESTful services
 
 ## Installation Instructions
   You can import the project as a maven application to your favorite IDE. I made my tests by using intellij.
-  
   If lombok gets in your way, by referring [this answer](https://stackoverflow.com/a/22332248/4130569), you can install lombok by its jar file.
 
-## Requirement package
+### Requirement package
 1. Java 11
 2. Spring Boot
 3. Mysql *(Optional If you don't want to use docker)
 4. MongoDb *(Optional If you don't want to use docker)
-3. Docker
-4. Docker-Compose
+3. Docker  *(Optional If you don't want to use docker)
+4. Docker-Compose *(Optional If you don't want to use docker)
 
-## To run the application
+### To run the application
 Use one of the several ways of running a Spring Boot application. Below are just three options:
-
-1. Build using maven goal (or by using maven wrapper): `mvn clean package` and execute the resulting artifact as follows `java -jar BankApplicationBackend-0.0.1-SNAPSHOT.jar` or
-2. On Unix/Linux based systems: run `mvn clean package` then run the resulting jar as any other executable `./BankApplicationBackend-0.0.1-SNAPSHOT.jar`
-3. Run as a [Docker](https://www.docker.com/) container.  
+1. Build using maven goal (or by using maven wrapper): `mvn clean package` and execute the resulting artifact as follows `java -jar {MicroServiceName}-0.0.1-SNAPSHOT.jar` or
+2. On Unix/Linux based systems: run `mvn clean package` then run the resulting jar as any other executable `./MicroServiceName-0.0.1-SNAPSHOT.jar`
+3. Run as a [Docker](https://www.docker.com/) container. (What's most recommended)  
     1) Clone the repository.
     2) cd to project root directory.
     3) Run this cmd `cd ms-note && ./mvnw clean package && cd ../ms-patient && ./mvnw clean package && cd ../ms-report && ./mvnw clean package && ../ui && ./mvnw clean package && cd ..`
@@ -38,7 +36,7 @@ Use one of the several ways of running a Spring Boot application. Below are just
       * If you get a `./mvnw not found` error, just run `mvn -N io.takari:maven:wrapper -Dmaven=3.5.3` while in the root directory of the project.
 
 ## To test the application
-  1. The client should serve on `http://localhost:8004`
+  1. Go inside on `http://localhost:8004`
   2. Get list of patients with /patient/list url.
   
     `$ curl --location --request GET 'http://localhost:8002/patient/list'`
