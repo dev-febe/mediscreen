@@ -56,9 +56,10 @@ Use one of the several ways of running a Spring Boot application. Below are just
              "age": 46
          }
      ]`
-  2. Add a new patient with /patient/add url.
+ 2. Add a new patient with /patient/add url.
   
-  `$ curl --location --request POST 'http://localhost:8002/patient/add' \
+  
+    ` $ curl --location --request POST 'http://localhost:8002/patient/add' \
      --header 'Content-Type: application/json' \
      --data-raw '{
          "family": "Kone",
@@ -71,7 +72,7 @@ Use one of the several ways of running a Spring Boot application. Below are just
   
    You'll get a response as in below.
   
-  `{
+    `{
        "id": 3,
        "family": "Kone",
        "given": "Ben Fousseni christ",
@@ -84,7 +85,7 @@ Use one of the several ways of running a Spring Boot application. Below are just
   
   3. Add new note with /note/list.
 
-  `$ curl --location --request POST 'http://localhost:8002/patient/add' \
+    `$ curl --location --request POST 'http://localhost:8002/patient/add' \
      --header 'Content-Type: application/json' \
      --data-raw '{
          "family": "Kone",
@@ -96,6 +97,7 @@ Use one of the several ways of running a Spring Boot application. Below are just
      }'`
      
   You'll get a response as in below
+        
     `[
          {
              "id": 1,
