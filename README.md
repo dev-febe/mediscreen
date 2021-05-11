@@ -29,6 +29,7 @@ Use one of the several ways of running a Spring Boot application. Below are just
       * If you get a `./mvnw not found` error, just run `mvn -N io.takari:maven:wrapper -Dmaven=3.5.3` while in the root directory of the project.
 
 ## To test the application
+  1. The client should serve on `http://localhost:8004`
   1. Get list of patients with /patient/list url.
   
     `$ curl --location --request GET 'http://localhost:8002/patient/list'`
