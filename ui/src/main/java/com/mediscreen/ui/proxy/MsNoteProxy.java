@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@FeignClient(name = "ms-note", url = "localhost:8001")
+@FeignClient(name = "ms-note", url = "${proxy.ms.note.url}")
 public interface MsNoteProxy {
     @GetMapping("/note/{id}")
     Note getNote(@PathVariable long id);

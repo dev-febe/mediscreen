@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/mertakdut/Spring-Boot-Sample-Project.svg?branch=master)](https://travis-ci.org/mertakdut/Spring-Boot-Sample-Project)
 [![Coverage Status](https://coveralls.io/repos/github/mertakdut/Spring-Boot-Sample-Project/badge.svg?branch=master)](https://coveralls.io/github/mertakdut/Spring-Boot-Sample-Project?branch=master)
 
-This is a sample Java / Maven / Spring Boot application which provides RESTful services. It can be used as a starter project.
+This is a Java / Maven / Spring Boot application which provides RESTful services.
 
 ## Installation Instructions
   You can import the project as a maven application to your favorite IDE. I made my tests by using intellij.
@@ -11,7 +11,6 @@ This is a sample Java / Maven / Spring Boot application which provides RESTful s
   If lombok gets in your way, by referring [this answer](https://stackoverflow.com/a/22332248/4130569), you can install lombok by its jar file.
 
 ## Requirement package
-
 1. Java 11
 2. Spring Boot
 3. Docker 
@@ -25,27 +24,105 @@ Use one of the several ways of running a Spring Boot application. Below are just
 3. Run as a [Docker](https://www.docker.com/) container.  
     1) Clone the repository.
     2) cd to project root directory.
-    3) `docker-compose up -d --build`
+    3) Run this cmd `cd ms-note && ./mvnw clean package && cd ../ms-patient && ./mvnw clean package && cd ../ms-report && ./mvnw clean package && ../ui && ./mvnw clean package && cd ..`
+    4) Run `docker-compose up -d --build`
       * If you get a `./mvnw not found` error, just run `mvn -N io.takari:maven:wrapper -Dmaven=3.5.3` while in the root directory of the project.
+
 ## To test the application
-  1. Create a user with /api/user/create url.
+  1. Get list of patients with /patient/list url.
   
-    `$ curl -X POST localhost:8080/api/user/create -d "{\"username\": \"yourUsername\", \"password\": \"yourPassword\", \"tcno\": \"12512561125\"}" -H "Content-Type:application/json"`
+    `$ curl --location --request GET 'http://localhost:8002/patient/list'`
   You'll get a response as in below.
   
-    `{"username":"yourUsername","tcno":"12512561125"}`
-  2. Generate an access token by /api/login url.
+    `[
+         {
+             "id": 1,
+             "family": "Kone",
+             "given": "Ben Fousseni Christ",
+             "dob": "1975-01-01",
+             "sex": "M",
+             "address": "Abidjan",
+             "phone": "+4477059870",
+             "age": 46
+         },
+         {
+             "id": 2,
+             "family": "Lia",
+             "given": "Sepri Samuella",
+             "dob": "1975-01-02",
+             "sex": "F",
+             "address": "Abidjan",
+             "phone": "+4477059870",
+             "age": 46
+         }
+     ]`
+  2. Add a new patient with /patient/add url.
   
-  `$ curl -H "Content-Type: application/json" -X POST -d "{\"username\": \"yourUsername\", \"password\": \"yourPassword\"}" http://localhost:8080/api/login`
+  `$ curl --location --request POST 'http://localhost:8002/patient/add' \
+     --header 'Content-Type: application/json' \
+     --data-raw '{
+         "family": "Kone",
+         "given": "Ben Fousseni christ",
+         "dob": "1996-06-28",
+         "sex": "M",
+         "address": "Abidjan BP 18",
+         "phone": "+22(0è77059870"
+     }'`
   
-  You'll be getting an access token similar to this.
+   You'll get a response as in below.
   
-  `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ5b3VyVXNlcm5hbWUiLCJleHAiOjE1NTI0NDMzNjZ9.0WSCg4vaP7BVeJz8tQnL3s-BYjBB6UWXlQKCZHm1_zqEVIiA8_71Ni7tbPDm2DbW-Qc_fPP9CQF1jKcRC9njFQ`
+  `{
+       "id": 3,
+       "family": "Kone",
+       "given": "Ben Fousseni christ",
+       "dob": "1996-06-28",
+       "sex": "M",
+       "address": "Abidjan BP 18",
+       "phone": "+22(0è77059870",
+       "age": 0
+   }`
   
-  3. Use the token to access content available to all authenticated users, through the RESTful API.
-    
-  Http.Get request example:
-    `curl -i -H "Accept: application/json" -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ5b3VyVXNlcm5hbWUiLCJleHAiOjE1NTI0NDMzNjZ9.0WSCg4vaP7BVeJz8tQnL3s-BYjBB6UWXlQKCZHm1_zqEVIiA8_71Ni7tbPDm2DbW-Qc_fPP9CQF1jKcRC9njFQ" -X GET http://localhost:8080/api/user/find/all`
-    
-  Http.Post request example:
-    `curl -H "Content-Type: application/json" -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ5b3VyVXNlcm5hbWUiLCJleHAiOjE1NTI0NDMzNjZ9.0WSCg4vaP7BVeJz8tQnL3s-BYjBB6UWXlQKCZHm1_zqEVIiA8_71Ni7tbPDm2DbW-Qc_fPP9CQF1jKcRC9njFQ" -X POST -d "{\"username\": \"yourUsername\", \"buying\": \"true\", \"currency\": \"USD\", \"amount\": \"250\"}" http://localhost:8080/api/transaction/create`
+  3. Add new note with /note/list.
+
+  `$ curl --location --request POST 'http://localhost:8002/patient/add' \
+     --header 'Content-Type: application/json' \
+     --data-raw '{
+         "family": "Kone",
+         "given": "Ben Fousseni christ",
+         "dob": "1996-06-28",
+         "sex": "M",
+         "address": "Abidjan BP 18",
+         "phone": "+22(0è77059870"
+     }'`
+     
+  You'll get a response as in below
+    `[
+         {
+             "id": 1,
+             "patient": {
+                 "id": 2,
+                 "family": "Lia",
+                 "given": "Sepri Samuella",
+                 "dob": "1975-01-02T00:00:00.000+00:00",
+                 "sex": "F",
+                 "address": "Abidjan",
+                 "phone": "+4477059870",
+                 "age": 46
+             },
+             "content": "She has not pain"
+         },
+         {
+             "id": 2,
+             "patient": {
+                 "id": 1,
+                 "family": "Kone",
+                 "given": "Ben Fousseni Christ",
+                 "dob": "1975-01-01T00:00:00.000+00:00",
+                 "sex": "M",
+                 "address": "Abidjan",
+                 "phone": "+4477059870",
+                 "age": 46
+             },
+             "content": "He's nothing"
+         }
+     ]`

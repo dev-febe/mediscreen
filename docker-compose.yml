@@ -36,3 +36,11 @@ services:
     links:
       - ms_note:ms-note
       - ms_patient:ms-patient
+  ui:
+    build: ./ui
+    ports:
+      - 8004:8080
+    links:
+      - ms_note:ms-note
+      - ms_patient:ms-patient
+      - ms_report:ms-report
